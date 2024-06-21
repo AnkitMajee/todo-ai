@@ -10,7 +10,7 @@ function App() {
   const [update, setUpdate] = useState(false)
   useEffect(() => {
     alanBtn({
-      key: 'YOur ALAN API KEY',
+      key: 'My API key/stage',
       onCommand: (commandData) => {
         addDoc(databaseRef, { item: commandData.data })
         .then(() => {
@@ -21,8 +21,8 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <Todolist />
+    <div className='todo-app'>
+      <Todolist databaseRef={databaseRef} setUpdate={setUpdate} update={update}/>
     </div>
   )
 }
