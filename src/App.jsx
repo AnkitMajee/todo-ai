@@ -1,29 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import './App.css';
-import Todolist from './components/Todolist';
-import alanBtn from "@alan-ai/alan-sdk-web";
-import { app, database } from './firebase-config';
-import { collection, addDoc } from 'firebase/firestore';
+import './App.css'
+import Todolist from './components/Todolist'
+import alanBtn from '@alan-ai/alan-sdk-web'
+import React, { useEffect, useState } from 'react'
+import { database } from './firebase-config'
+import { collection, addDoc } from 'firebase/firestore'
+
+const databaseRef = collection(database, 'todo-list')
 
 function App() {
-  const databaseRef = collection(database, 'todo-list');
   const [update, setUpdate] = useState(false)
+
   useEffect(() => {
     alanBtn({
-      key: 'My API key/stage',
+      key: '32ecd9d53caf4a9b50593a384f8294712e956eca572e1d8b807a3e2338fdd0dc/stage',
       onCommand: (commandData) => {
-        addDoc(databaseRef, { item: commandData.data })
-        .then(() => {
-          setUpdate(true);
+        addDoc(databaseRef, { item: commandData.data }).then(() => {
+          setUpdate(true)
         })
-      }
-    });
-  }, []);
+      },
+    })
+  }, [])
 
   return (
-    <div className='todo-app'>
-      <Todolist databaseRef={databaseRef} setUpdate={setUpdate} update={update}/>
-    </div>
+    <Todolist databaseRef={databaseRef} update={update} setUpdate={setUpdate} />
   )
 }
 
