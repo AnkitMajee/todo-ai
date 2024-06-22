@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "aitodo",
     "public": "public",
     "ignore": [
       "firebase.json",
